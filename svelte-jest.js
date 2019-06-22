@@ -17,7 +17,7 @@ exports.process = (...args) => {
     });
   let count = 0;
   while (compiled === undefined || !compiled.code || !compiled.map) {
-    if (count++ >= 100) {
+    if (count++ >= 500) {
       throw new Error("Can't compile svelte component for test");
     }
     deasync.runLoopOnce();
