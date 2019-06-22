@@ -1,14 +1,16 @@
-import svelte from "rollup-plugin-svelte";
-import commonjs from "rollup-plugin-commonjs";
-import resolve from "rollup-plugin-node-resolve";
-import serve from "rollup-plugin-serve";
-import html from "rollup-plugin-bundle-html";
-import typescript from "rollup-plugin-typescript2";
-import tscompile from "typescript";
-import { terser } from "rollup-plugin-terser";
+const svelte = require("rollup-plugin-svelte");
+const commonjs = require("rollup-plugin-commonjs");
+const resolve = require("rollup-plugin-node-resolve");
+const serve = require("rollup-plugin-serve");
+const html = require("rollup-plugin-bundle-html");
+const typescript = require("rollup-plugin-typescript2");
+const tscompile = require("typescript");
+const { terser } = require("rollup-plugin-terser");
+const livereload = require("rollup-plugin-livereload");
 
 const isProd = process.env.NODE_ENV === "production";
 const isDev = process.env.NODE_ENV === "development";
+const isTest = process.env.NODE_ENV === "test";
 
 const plugins = [
   commonjs({ include: "node_modules/**" }),
@@ -17,7 +19,7 @@ const plugins = [
     dev: isProd ? false : true,
     extensions: [".svelte"],
     preprocess: require("./svelte.config.js").preprocess,
-    css: css => css.write("build/css/style.css")
+    css: isTest ? false : css => css.write("build/css/style.css")
   }),
   resolve({ browser: true }),
   html({
@@ -34,16 +36,20 @@ if (isDev) {
       openPage: "/index.html",
       historyApiFallback: "/index.html",
       contentBase: ["./build"]
+    }),
+    livereload({
+      watch: "build"
     })
   );
 } else if (isProd) {
   plugins.push(terser({ sourcemap: true }));
 }
 
-export default {
+module.exports = {
   input: "src/index.ts",
   output: {
     sourcemap: true,
+    name: "main",
     file: "build/js/main.js",
     format: "iife"
   },

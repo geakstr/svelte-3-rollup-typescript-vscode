@@ -1,7 +1,9 @@
 import App from "./App.svelte";
 
-new App({
-  target: document.body,
+export const target = document.body;
+
+export const app = new App({
+  target,
   props: {
     name: "World"
   }
