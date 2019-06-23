@@ -2,8 +2,8 @@
 
 Starter pack for Svelte 3/Rollup/Typescript/Visual Studio Code:
 
-- Typescript support inside Svelte components with [https://github.com/PaulMaly/svelte-ts-preprocess](svelte-ts-preprocess)
-- Also it adds some support for Visual Studio Code and [https://github.com/UnwrittenFun/svelte-vscode](https://github.com/UnwrittenFun/svelte-vscode) extension (via `svelte.config.js`)
+- Typescript support inside Svelte components with [svelte-ts-preprocess](https://github.com/PaulMaly/svelte-ts-preprocess)
+- Also it adds some support for Visual Studio Code and [svelte-vscode](https://github.com/UnwrittenFun/svelte-vscode) extension (via `svelte.config.js`)
 - Jest for test for .js/.ts/.svelte
 - Supports `index.html` entry file, dev server to serve it and livereload
 - See all in `rollup.config.js`.
